@@ -5,7 +5,7 @@ const router = new express.Router();
 
 router.get('/', async (request, response, next) => {
     try {
-        const results = await db.query(`SELECT code, name FROM companies`);
+        const results = await db.query(`SELECT code, name FROM companies ORDER BY code`);
         return response.json({ companies: results.rows });
     } catch (err) {
         return next(err);
