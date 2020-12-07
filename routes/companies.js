@@ -27,11 +27,20 @@ router.get('/:code', async (request, response, next) => {
                 [company.code]);
             const invoices = invoiceResults.rows.map((invoice) => { return invoice.id });
 
+            const industryResults = await db.query(`SELECT industry FROM industries
+                WHERE code IN (
+                    SELECT ind_code FROM company_industries
+                    WHERE comp_code = $1
+                )`,
+                [company.code]);
+            const industries = industryResults.rows.map((val) => { return val.industry });
+
             return response.json({
                 company: {
                     code: company.code,
                     name: company.name,
                     description: company.description,
+                    industries: industries,
                     invoices: invoices
                 }
             });

@@ -4,13 +4,15 @@
 const express = require("express");
 const companies = require('./routes/companies');
 const invoices = require('./routes/invoices');
+const industries = require('./routes/industries');
 
 const app = express();
-const ExpressError = require("./expressError")
+const ExpressError = require("./expressError");
 
 app.use(express.json());
 app.use('/companies', companies);
 app.use('/invoices', invoices);
+app.use('/industries', industries);
 
 
 /** 404 handler */
